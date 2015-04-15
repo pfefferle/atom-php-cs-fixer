@@ -1,0 +1,20 @@
+{
+  "name": "php-cs-fixer",
+  "main": "./lib/php-cs-fixer",
+  "version": "1.0.0",
+  "description": "Run the 'PHP Coding Standards Fixer' within Atom",
+  "activationCommands": {
+    "atom-workspace": "php-cs-fixer:fix"
+  },
+  "author": {
+    "name": "Matthias Pfefferle",
+    "url": "http://pfefferle.org/"
+  },
+  "repository": "https://github.com/pfefferle/atom-php-cs-fixer",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=0.174.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}
