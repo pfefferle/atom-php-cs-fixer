@@ -2,7 +2,7 @@
 
 Run the "[PHP Coding Standards Fixer](http://cs.sensiolabs.org)" within your Atom Editor
 
-![A screenshot of your package](https://raw.github.com/pfefferle/php-cs-fixer/master/php-cs-fixer.gif)
+![A screenshot of your package](https://raw.github.com/pfefferle/atom-php-cs-fixer/master/php-cs-fixer.gif)
 
 ## Installation
 
