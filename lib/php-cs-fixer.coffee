@@ -10,12 +10,13 @@ module.exports = PhpCsFixer =
       description: 'the path to the `php-cs-fixer` executable'
     level:
       type: 'string'
+      enum: ['psr0', 'psr1', 'psr2', 'symfony']
       default: 'psr2'
-      description: 'for example: `psr0`, `psr1`, `psr2` or `symfony`'
+      description: 'for example: psr0, psr1, psr2 or symfony'
     fixers:
       type: 'string'
       default: ''
-      description: 'a list of fixers, see <http://cs.sensiolabs.org/#usage> for a complete list'
+      description: 'a list of fixers, for example: `linefeed,short_tag,indentation`. See <http://cs.sensiolabs.org/#usage> for a complete list'
 
 
   activate: (state) ->
