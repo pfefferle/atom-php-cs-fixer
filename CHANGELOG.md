@@ -1,3 +1,3 @@
-## 1.0.0 - First Release
+## 2.0.0 - First Release
 
 Functional first version

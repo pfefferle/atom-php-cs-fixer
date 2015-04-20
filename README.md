@@ -7,7 +7,7 @@ Run the "[PHP Coding Standards Fixer](http://cs.sensiolabs.org)" within your Ato
 ## Installation
 
 ```sh
-apm install php-cs-fixer
+$ apm install php-cs-fixer
 ```
 
 or find it in the Packages tab under settings
@@ -22,7 +22,7 @@ Installation via Composer
 $ ./composer.phar global require fabpot/php-cs-fixer
 ```
 
-For other installation methods, visit <http://cs.sensiolabs.org>
+For other installation methods, see <http://cs.sensiolabs.org/#installation>
 
 ## Usage
 
