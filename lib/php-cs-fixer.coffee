@@ -7,12 +7,15 @@ module.exports = PhpCsFixer =
     executablePath:
       type: 'string'
       default: 'php php-cs-fixer.phar'
+      description: 'the path to the `php-cs-fixer` executable'
     level:
       type: 'string'
       default: 'psr2'
+      description: 'for example: `psr0`, `psr1`, `psr2` or `symfony`'
     fixers:
       type: 'string'
       default: ''
+      description: 'a list of fixers, see <http://cs.sensiolabs.org/#usage> for a complete list'
 
 
   activate: (state) ->
