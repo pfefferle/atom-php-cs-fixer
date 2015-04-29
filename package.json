@@ -1,7 +1,7 @@
 {
   "name": "php-cs-fixer",
   "main": "./lib/php-cs-fixer",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Run the 'PHP Coding Standards Fixer' within Atom",
   "activationCommands": {
     "atom-workspace": "php-cs-fixer:fix"
