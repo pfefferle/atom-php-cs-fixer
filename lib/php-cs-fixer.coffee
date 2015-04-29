@@ -1,8 +1,8 @@
 {CompositeDisposable} = require 'atom'
+{BufferedProcess} = require 'atom'
 
 module.exports = PhpCsFixer =
   subscriptions: null
-  spawn: null
   config:
     executablePath:
       type: 'string'
@@ -45,17 +45,17 @@ module.exports = PhpCsFixer =
 
     filePath = editor.getPath() if editor && editor.getPath
 
-    @spawn ?= require('child_process').spawn
+    command = @executablePath
 
     # init opptions
-    options = ['fix', filePath]
+    args = ['fix', filePath]
 
     # add optional opptions
-    options.push '--level=' + @level if @level
-    options.push '--fixers=' + @fixers if @fixers
+    args.push '--level=' + @level if @level
+    args.push '--fixers=' + @fixers if @fixers
 
-    result = @spawn(@executablePath, options) if filePath && @spawn
+    stdout = (output) -> console.log(output)
+    stderr = (output) -> console.error(output)
+    exit = (code) -> console.log("#{command} exited with code: #{code}")
 
-    # some debug output
-    result.stdout.on 'data', (data) -> console.debug data.toString().trim()
-    result.stderr.on 'data', (data) -> console.debug data.toString().trim()
+    process = new BufferedProcess({command: command, args: args, stdout: stdout, stderr: stderr, exit: exit}) if filePath
