@@ -34,4 +34,4 @@ For other installation methods, see <http://cs.sensiolabs.org/#installation>
 
 ### I have updated the plugin to 2.3.0 and it does not work any more
 
-I had to add a new settings-parameter `Php Executable Path` to get the plugin running on Windows, so be sure to check if the new settings is configured properly.
+I had to add a new settings-parameter `Php Executable Path` to get the plugin running on Windows, so be sure to check if the new setting is configured properly.
