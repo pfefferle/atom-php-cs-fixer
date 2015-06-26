@@ -4,9 +4,13 @@
 module.exports = PhpCsFixer =
   subscriptions: null
   config:
+    phpExecutablePath:
+      type: 'string'
+      default: 'php'
+      description: 'the path to the `php` executable'
     executablePath:
       type: 'string'
-      default: 'php php-cs-fixer.phar'
+      default: '~/.composer/vendor/bin/php-cs-fixer'
       description: 'the path to the `php-cs-fixer` executable'
     level:
       type: 'string'
@@ -32,6 +36,9 @@ module.exports = PhpCsFixer =
   serialize: ->
 
   fix: ->
+    atom.config.observe 'php-cs-fixer.phpExecutablePath', =>
+      @phpExecutablePath = atom.config.get 'php-cs-fixer.phpExecutablePath'
+
     atom.config.observe 'php-cs-fixer.executablePath', =>
       @executablePath = atom.config.get 'php-cs-fixer.executablePath'
 
@@ -45,17 +52,27 @@ module.exports = PhpCsFixer =
 
     filePath = editor.getPath() if editor && editor.getPath
 
-    command = @executablePath
+    command = @phpExecutablePath
 
     # init opptions
-    args = ['fix', filePath]
+    args = [@executablePath, 'fix', filePath]
 
     # add optional opptions
     args.push '--level=' + @level if @level
     args.push '--fixers=' + @fixers if @fixers
 
+    # some debug output for a better support feedback
+    console.debug('php-cs-fixer Command', command)
+    console.debug('php-cs-fixer Arguments', args)
+
     stdout = (output) -> console.log(output)
     stderr = (output) -> console.error(output)
     exit = (code) -> console.log("#{command} exited with code: #{code}")
 
-    process = new BufferedProcess({command: command, args: args, stdout: stdout, stderr: stderr, exit: exit}) if filePath
+    process = new BufferedProcess({
+      command: command,
+      args: args,
+      stdout: stdout,
+      stderr: stderr,
+      exit: exit
+    }) if filePath

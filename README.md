@@ -29,3 +29,9 @@ For other installation methods, see <http://cs.sensiolabs.org/#installation>
 `ctrl-cmd-s` or **Php Cs Fixer: Fix** in the Command Palette.
 
 (The commands can also be found in the settings-menu of the Package)
+
+## FAQ
+
+### I have updated the plugin to 2.2.0 and it does not work any more
+
+I had to add a new settings-parameter `Php Executable Path` to get the plugin running on Windows, so be sure to check if the new settings is configured properly.
