@@ -32,7 +32,7 @@ For other installation methods, see <http://cs.sensiolabs.org/#installation>
 
 ## Settings
 
-### [Mac OS X + brew]((https://github.com/pfefferle/atom-php-cs-fixer/issues/7#issuecomment-118163704) (by [@gammamatrix](https://github.com/gammamatrix))
+### [Mac OS X + brew](https://github.com/pfefferle/atom-php-cs-fixer/issues/7#issuecomment-118163704) (by [@gammamatrix](https://github.com/gammamatrix))
 
 To get it to work with brew, you need to `cat` the contents of the script installed with `brew install php-cs-fixer`:
 
