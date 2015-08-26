@@ -1,3 +1,8 @@
+## 2.4.0
+
+* Added "on save" hook to automatically run the fixer on every save
+* Added `.php_cs` support
+
 ## 2.3.0
 
 * Added PHP-executable option (fixes #6)
