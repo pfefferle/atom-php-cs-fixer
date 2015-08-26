@@ -21,21 +21,15 @@ module.exports = PhpCsFixer =
       type: 'string'
       default: ''
       description: 'a list of fixers, for example: `linefeed,short_tag,indentation`. See <http://cs.sensiolabs.org/#usage> for a complete list'
-
+    executeOnSave:
+      type: 'boolean'
+      default: false
+      description: 'execute PHP CS fixer on save'
 
   activate: (state) ->
-    # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
-    @subscriptions = new CompositeDisposable
+    atom.config.observe 'php-cs-fixer.executeOnSave', =>
+      @executeOnSave = atom.config.get 'php-cs-fixer.executeOnSave'
 
-    # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'php-cs-fixer:fix': => @fix()
-
-  deactivate: ->
-    @subscriptions.dispose()
-
-  serialize: ->
-
-  fix: ->
     atom.config.observe 'php-cs-fixer.phpExecutablePath', =>
       @phpExecutablePath = atom.config.get 'php-cs-fixer.phpExecutablePath'
 
@@ -48,6 +42,21 @@ module.exports = PhpCsFixer =
     atom.config.observe 'php-cs-fixer.fixers', =>
       @fixers = atom.config.get 'php-cs-fixer.fixers'
 
+    # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
+    @subscriptions = new CompositeDisposable
+
+    # Register command that toggles this view
+    @subscriptions.add atom.commands.add 'atom-workspace', 'php-cs-fixer:fix': => @fix()
+
+    @subscriptions.add atom.workspace.observeTextEditors (editor) =>
+      @subscriptions.add editor.onDidSave =>
+        if editor.getGrammar().name == "PHP" and @executeOnSave
+          @fix() # if @executeOnSave
+
+  deactivate: ->
+    @subscriptions.dispose()
+
+  fix: ->
     editor = atom.workspace.getActivePaneItem()
 
     filePath = editor.getPath() if editor && editor.getPath

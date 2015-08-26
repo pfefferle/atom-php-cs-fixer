@@ -1,4 +1,4 @@
-## 2.3.0
+## 2.2.0
 
 * Added PHP-executable option (fixes #6)
 * Added some debug output

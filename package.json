@@ -10,7 +10,10 @@
     "name": "Matthias Pfefferle",
     "url": "http://pfefferle.org/"
   },
-  "repository": "https://github.com/pfefferle/atom-php-cs-fixer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pfefferle/atom-php-cs-fixer"
+  },
   "license": "MIT",
   "engines": {
     "atom": ">=0.174.0 <2.0.0",
@@ -23,5 +26,28 @@
     "psr",
     "php-cs"
   ],
-  "dependencies": {}
+  "dependencies": {},
+  "readme": "# php-cs-fixer Atom-Package\n\nRun the \"[PHP Coding Standards Fixer](http://cs.sensiolabs.org)\" within your Atom Editor\n\n![A screenshot of your package](https://raw.github.com/pfefferle/atom-php-cs-fixer/master/php-cs-fixer.gif)\n\n## Installation\n\n```sh\n$ apm install php-cs-fixer\n```\n\nor find it in the Packages tab under settings\n\n## Requirements\n\nThe package requires the \"[PHP Coding Standards Fixer](http://cs.sensiolabs.org)\" Cli build by [SensioLabs](http://sensiolabs.com).\n\nInstallation via Composer\n\n```sh\n$ ./composer.phar global require fabpot/php-cs-fixer\n```\n\nFor other installation methods, see <http://cs.sensiolabs.org/#installation>\n\n## Usage\n\n`ctrl-cmd-s` or **Php Cs Fixer: Fix** in the Command Palette.\n\n(The commands can also be found in the settings-menu of the Package)\n\n## FAQ\n\n### I have updated the plugin to 2.2.0 and it does not work any more\n\nI had to add a new settings-parameter `Php Executable Path` to get the plugin running on Windows, so be sure to check if the new settings is configured properly.\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/pfefferle/atom-php-cs-fixer/issues"
+  },
+  "homepage": "https://github.com/pfefferle/atom-php-cs-fixer",
+  "_id": "php-cs-fixer@2.3.0",
+  "_shasum": "973bb476e5924666d6452812c64723f0950e30f1",
+  "_resolved": "file:../d-115711-48042-12z60qb/package.tgz",
+  "_from": "../d-115711-48042-12z60qb/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/php-cs-fixer.coffee"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
 }
