@@ -1,5 +1,7 @@
 {CompositeDisposable} = require 'atom'
 {BufferedProcess} = require 'atom'
+fs = require 'fs'
+path = require 'path'
 
 module.exports = PhpCsFixer =
   subscriptions: null
@@ -66,9 +68,12 @@ module.exports = PhpCsFixer =
     # init opptions
     args = [@executablePath, 'fix', filePath]
 
+    if configPath = @findFile(path.dirname(filePath), '.php_cs')
+      args.push '--config-file=' + configPath
+
     # add optional opptions
-    args.push '--level=' + @level if @level
-    args.push '--fixers=' + @fixers if @fixers
+    args.push '--level=' + @level if @level and not configPath
+    args.push '--fixers=' + @fixers if @fixers and not configPath
 
     # some debug output for a better support feedback
     console.debug('php-cs-fixer Command', command)
@@ -85,3 +90,20 @@ module.exports = PhpCsFixer =
       stderr: stderr,
       exit: exit
     }) if filePath
+
+  # copied from atom-linter lib
+  # see: https://github.com/AtomLinter/atom-linter/blob/master/lib/helpers.coffee#L112
+  findFile: (startDir, names) ->
+    throw new Error "Specify a filename to find" unless arguments.length
+    unless names instanceof Array
+      names = [names]
+    startDir = startDir.split(path.sep)
+    while startDir.length
+      currentDir = startDir.join(path.sep)
+      for name in names
+        filePath = path.join(currentDir, name)
+        try
+          fs.accessSync(filePath, fs.R_OK)
+          return filePath
+      startDir.pop()
+    return null
