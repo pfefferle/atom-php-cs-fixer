@@ -92,8 +92,14 @@ module.exports = PhpCsFixer =
       exit: exit
     }) if filePath
 
-  # copied from atom-linter lib
+  # copied from the AtomLinter lib
   # see: https://github.com/AtomLinter/atom-linter/blob/master/lib/helpers.coffee#L112
+  #
+  # The AtomLinter is licensed under "The MIT License (MIT)"
+  #
+  # Copyright (c) 2015 AtomLinter
+  #
+  # See the full license here: https://github.com/AtomLinter/atom-linter/blob/master/LICENSE
   findFile: (startDir, names) ->
     throw new Error "Specify a filename to find" unless arguments.length
     unless names instanceof Array
