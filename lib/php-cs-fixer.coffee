@@ -50,10 +50,11 @@ module.exports = PhpCsFixer =
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'php-cs-fixer:fix': => @fix()
 
+    # Add workspace observer and save handler
     @subscriptions.add atom.workspace.observeTextEditors (editor) =>
-      @subscriptions.add editor.onDidSave =>
+      @subscriptions.add editor.getBuffer().onWillSave =>
         if editor.getGrammar().name == "PHP" and @executeOnSave
-          @fix() # if @executeOnSave
+          @fix()
 
   deactivate: ->
     @subscriptions.dispose()
