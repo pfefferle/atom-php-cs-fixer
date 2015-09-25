@@ -66,24 +66,27 @@ module.exports = PhpCsFixer =
 
     command = @phpExecutablePath
 
-    # init opptions
+    # init options
     args = [@executablePath, 'fix', filePath]
 
     if configPath = @findFile(path.dirname(filePath), '.php_cs')
       args.push '--config-file=' + configPath
 
-    # add optional opptions
+    # add optional options
     args.push '--level=' + @level if @level and not configPath
     args.push '--fixers=' + @fixers if @fixers and not configPath
 
     # some debug output for a better support feedback
     console.debug('php-cs-fixer Command', command)
     console.debug('php-cs-fixer Arguments', args)
-
-    stdout = (output) -> console.log(output)
-    stderr = (output) -> console.error(output)
+    stdout = (output) ->
+      if (!/^Fixed/.test(output))
+        atom.notifications.addWarning(output)
+      console.log(output)
+    stderr = (output) ->
+      atom.notifications.addError(output)
+      console.error(output)
     exit = (code) -> console.log("#{command} exited with code: #{code}")
-
     process = new BufferedProcess({
       command: command,
       args: args,
