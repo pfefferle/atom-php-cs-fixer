@@ -27,6 +27,10 @@ module.exports = PhpCsFixer =
       type: 'boolean'
       default: false
       description: 'execute PHP CS fixer on save'
+    showInfoNotifications:
+      type: 'boolean'
+      default: false
+      description: 'show some status informations from the last "fix"'
 
   activate: (state) ->
     atom.config.observe 'php-cs-fixer.executeOnSave', =>
@@ -43,6 +47,9 @@ module.exports = PhpCsFixer =
 
     atom.config.observe 'php-cs-fixer.fixers', =>
       @fixers = atom.config.get 'php-cs-fixer.fixers'
+
+    atom.config.observe 'php-cs-fixer.showInfoNotifications', =>
+      @showInfoNotifications = atom.config.get 'php-cs-fixer.showInfoNotifications'
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
@@ -79,14 +86,18 @@ module.exports = PhpCsFixer =
     # some debug output for a better support feedback
     console.debug('php-cs-fixer Command', command)
     console.debug('php-cs-fixer Arguments', args)
+
     stdout = (output) ->
-      if (!/^Fixed/.test(output))
-        atom.notifications.addWarning(output)
+      if (!/^Fixed/.test(output)) and PhpCsFixer.showInfoNotifications
+        atom.notifications.addInfo(output)
       console.log(output)
+
     stderr = (output) ->
       atom.notifications.addError(output)
       console.error(output)
+
     exit = (code) -> console.log("#{command} exited with code: #{code}")
+
     process = new BufferedProcess({
       command: command,
       args: args,

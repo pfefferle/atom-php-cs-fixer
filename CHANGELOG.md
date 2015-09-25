@@ -1,3 +1,8 @@
+## 2.5.0
+
+* Some typo fixes (props to [@rugk](https://github.com/rugk))
+* Notification system to display infos/errors/warnings (props to [@Marv51](https://github.com/Marv51))
+
 ## 2.4.0
 
 * Added "on save" hook to automatically run the fixer on every save
