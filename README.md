@@ -76,4 +76,4 @@ I had to add a new settings-parameter `Php Executable Path` to get the plugin ru
 
 ### On Windows this add-on does not work while running manually from the command line works
 
-You probably have to add the directory of the php.exe to the ```PATH``` environment variable. You can do this in the system properties. For detailed information use the [Java guide] (https://www.java.com/en/download/help/path.xml) or [this stackexchange answer] (https://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them).
+You probably have to add the directory of the php.exe to the ```PATH``` environment variable. You can do this in the system properties. You should configure the php-cs-fixer executable path to point to the vendor directory (e.g. ```C:/Users/{username}/AppData/Roaming/Composer/vendor/fabpot/php-cs-fixer/php-cs-fixer```). For detailed information use the [Java guide] (https://www.java.com/en/download/help/path.xml) or [this stackexchange answer] (https://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them).
