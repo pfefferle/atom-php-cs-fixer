@@ -7,27 +7,33 @@ module.exports = PhpCsFixer =
   subscriptions: null
   config:
     phpExecutablePath:
+      title: 'PHP executable path'
       type: 'string'
       default: 'php'
       description: 'the path to the `php` executable'
     executablePath:
+      title: 'PHP-CS-fixer executable path'
       type: 'string'
       default: '~/.composer/vendor/bin/php-cs-fixer'
       description: 'the path to the `php-cs-fixer` executable'
     level:
+      title: 'Level'
       type: 'string'
       enum: ['psr0', 'psr1', 'psr2', 'symfony']
       default: 'psr2'
       description: 'for example: psr0, psr1, psr2 or symfony'
     fixers:
+      title: 'Fixers'
       type: 'string'
       default: ''
       description: 'a list of fixers, for example: `linefeed,short_tag,indentation`. See <http://cs.sensiolabs.org/#usage> for a complete list'
     executeOnSave:
+      title: 'Execute on save'
       type: 'boolean'
       default: false
       description: 'execute PHP CS fixer on save'
     showInfoNotifications:
+      title: 'Show notifications'
       type: 'boolean'
       default: false
       description: 'show some status informations from the last "fix"'
