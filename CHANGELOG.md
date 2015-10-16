@@ -1,3 +1,8 @@
+## 2.5.1
+
+* Added nicer and more descriptive settings titles
+* Extended and restructured README.md
+
 ## 2.5.0
 
 * Some typo fixes (props to [@rugk](https://github.com/rugk))
