@@ -6,7 +6,7 @@ Run the "[PHP Coding Standards Fixer](http://cs.sensiolabs.org)" within your Ato
 
 ## Installation
 
-```sh
+```ShellSession
 $ apm install php-cs-fixer
 ```
 
@@ -18,7 +18,7 @@ The package requires the "[PHP Coding Standards Fixer](http://cs.sensiolabs.org)
 
 Installation via Composer
 
-```sh
+```ShellSession
 $ ./composer.phar global require fabpot/php-cs-fixer
 ```
 
@@ -26,11 +26,26 @@ For other installation methods, see <http://cs.sensiolabs.org/#installation>
 
 ## Usage
 
-`ctrl-cmd-s` or **Php Cs Fixer: Fix** in the Command Palette.
+`ctrl-cmd-s` or `Php Cs Fixer: Fix` in the Command Palette.
 
 (The commands can also be found in the settings-menu of the Package)
 
 ## Settings
+
+You can configure **php-cs-fixer** from the Atom package manager or by editing `~/.atom/config.cson` (choose Open Your Config in Atom menu).
+
+Here's an example configuration:
+
+```cson
+"php-cs-fixer":
+  executablePath: "~/.composer/vendor/bin/php-cs-fixer" # the path to the `php-cs-fixer` executable
+  executeOnSave: false # execute PHP CS fixer on save
+  fixers: null # a list of fixers
+  showInfoNotifications: true #show some status informations from the last "fix"
+  phpExecutablePath: "/usr/bin/php" # the path to the `php` executable
+```
+
+## How-To
 
 ### [Mac OS X + brew](https://github.com/pfefferle/atom-php-cs-fixer/issues/7#issuecomment-118163704) (by [@gammamatrix](https://github.com/gammamatrix))
 
@@ -38,7 +53,7 @@ To get it to work with brew, you need to `cat` the contents of the script instal
 
 #### Check to see where it installed
 
-```sh
+```ShellSession
 which php-cs-fixer
 
 /usr/local/bin/php-cs-fixer
@@ -46,7 +61,7 @@ which php-cs-fixer
 
 #### Cat the script
 
-```sh
+```ShellSession
 cat /usr/local/bin/php-cs-fixer
 
 #!/bin/sh
