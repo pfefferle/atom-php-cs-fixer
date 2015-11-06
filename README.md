@@ -6,7 +6,7 @@ Run the "[PHP Coding Standards Fixer](http://cs.sensiolabs.org)" within your Ato
 
 ## Installation
 
-```ShellSession
+```bash
 $ apm install php-cs-fixer
 ```
 
@@ -18,7 +18,7 @@ The package requires the "[PHP Coding Standards Fixer](http://cs.sensiolabs.org)
 
 Installation via Composer
 
-```ShellSession
+```bash
 $ ./composer.phar global require fabpot/php-cs-fixer
 ```
 
@@ -47,23 +47,23 @@ Here's an example configuration:
 
 ## How-To
 
-### [Mac OS X + brew](https://github.com/pfefferle/atom-php-cs-fixer/issues/7#issuecomment-118163704) (by [@gammamatrix](https://github.com/gammamatrix))
+### Mac OS X + brew
+
+By [@gammamatrix](https://github.com/gammamatrix)
 
 To get it to work with brew, you need to `cat` the contents of the script installed with `brew install php-cs-fixer`:
 
 #### Check to see where it installed
 
-```ShellSession
-which php-cs-fixer
-
+```bash
+$ which php-cs-fixer
 /usr/local/bin/php-cs-fixer
 ```
 
 #### Cat the script
 
-```ShellSession
+```bash
 cat /usr/local/bin/php-cs-fixer
-
 #!/bin/sh
 
 /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off /usr/local/Cellar/php-cs-fixer/1.8.1/libexec/php-cs-fixer.phar $*
@@ -75,7 +75,7 @@ cat /usr/local/bin/php-cs-fixer
 
 `/usr/local/Cellar/php-cs-fixer/1.8.1/libexec/php-cs-fixer.phar`
 
-**FYI:** *PHP Executable Path* is empty for my set up. I also installed PHP with brew.
+**FYI:** "*PHP executable Path*" is empty for my set up. I also installed PHP with brew.
 
 Use the keystroke: `ctrl-cmd-s`
 
@@ -87,8 +87,8 @@ This works for me without errors.
 
 ### I have updated the plugin to 2.3.0 and it does not work any more
 
-I had to add a new settings-parameter `Php Executable Path` to get the plugin running on Windows, so be sure to check if the new setting is configured properly.
+I had to add a new settings-parameter "*PHP executable Path*" to get the plugin running on Windows, so be sure to check if the new setting is configured properly.
 
 ### On Windows this add-on does not work while running manually from the command line works
 
-You probably have to add the directory of the php.exe to the ```PATH``` environment variable. You can do this in the system properties. You should configure the php-cs-fixer executable path to point to the vendor directory (e.g. ```C:/Users/{username}/AppData/Roaming/Composer/vendor/fabpot/php-cs-fixer/php-cs-fixer```). For detailed information use the [Java guide] (https://www.java.com/en/download/help/path.xml) or [this stackexchange answer] (https://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them).
+You probably have to add the directory of the php.exe to the ```PATH``` environment variable. You can do this in the system properties. You should configure the php-cs-fixer executable path to point to the vendor directory (e.g. ```C:/Users/{username}/AppData/Roaming/Composer/vendor/fabpot/php-cs-fixer/php-cs-fixer```). For detailed information use the [Java guide](https://www.java.com/en/download/help/path.xml) or [this stackexchange answer](https://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them).

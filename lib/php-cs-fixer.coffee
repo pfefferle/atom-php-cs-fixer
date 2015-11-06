@@ -95,8 +95,8 @@ module.exports = PhpCsFixer =
 
     stdout = (output) ->
       if (!/^Fixed/.test(output)) and PhpCsFixer.showInfoNotifications
-        atom.notifications.addInfo(output)
-      console.log(output)
+        atom.notifications.addSuccess(output)
+      console.debug(output)
 
     stderr = (output) ->
       atom.notifications.addError(output)
