@@ -1,3 +1,7 @@
+## 2.5.2
+
+* Nicer notifications
+
 ## 2.5.1
 
 * Added nicer and more descriptive settings titles
