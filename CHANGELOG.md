@@ -1,3 +1,8 @@
+## 2.5.3
+
+* Changed default value of `php-cs-ficer` path
+* Show context-menu only for PHP files (props to [@joanhey](https://github.com/joanhey))
+
 ## 2.5.2
 
 * Nicer notifications
