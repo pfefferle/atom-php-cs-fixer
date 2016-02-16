@@ -14,7 +14,7 @@ module.exports = PhpCsFixer =
     executablePath:
       title: 'PHP-CS-fixer executable path'
       type: 'string'
-      default: '~/.composer/vendor/bin/php-cs-fixer'
+      default: 'php-cs-fixer'
       description: 'the path to the `php-cs-fixer` executable'
     level:
       title: 'Level'
