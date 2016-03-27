@@ -1,6 +1,6 @@
 ## 2.5.3
 
-* Changed default value of `php-cs-ficer` path
+* Changed default value of `php-cs-fixer` path
 * Show context-menu only for PHP files (props to [@joanhey](https://github.com/joanhey))
 
 ## 2.5.2
