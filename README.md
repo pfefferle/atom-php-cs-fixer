@@ -1,3 +1,5 @@
+[![apm](https://img.shields.io/apm/v/php-cs-fixer.svg?maxAge=2592000)]() [![apm](https://img.shields.io/apm/l/php-cs-fixer.svg?maxAge=2592000)]() [![apm](https://img.shields.io/apm/dm/php-cs-fixer.svg?maxAge=2592000)]() 
+
 # php-cs-fixer Atom-Package
 
 Run the "[PHP Coding Standards Fixer](http://cs.sensiolabs.org)" within your Atom Editor
