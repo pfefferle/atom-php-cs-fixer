@@ -1,4 +1,4 @@
-## 2.5.4
+## 2.5.9
 
 * Adding the option to run php without a php.ini file (props to [@christopherrolfe198](https://github.com/christopherrolfe198))
 
