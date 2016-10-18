@@ -91,7 +91,7 @@ module.exports = PhpCsFixer =
 
     # init options
     if @runPhpWithoutAnyIni
-        args = ['-n', @executablePath, 'fix', filePath]
+        args = ['-n', '-dextension=phar.so', '-dextension=tokenizer.so', @executablePath, 'fix', filePath]
     else
         args = [@executablePath, 'fix', filePath]
 
