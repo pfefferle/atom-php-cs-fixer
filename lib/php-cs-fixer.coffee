@@ -11,6 +11,11 @@ module.exports = PhpCsFixer =
       type: 'string'
       default: 'php'
       description: 'the path to the `php` executable'
+    phpArguments:
+      title: 'Add PHP arguments'
+      type: 'array'
+      default: []
+      description: 'Add arguments, like for example `-n`, to the PHP executable'
     executablePath:
       title: 'PHP-CS-fixer executable path'
       type: 'string'
@@ -37,11 +42,6 @@ module.exports = PhpCsFixer =
       type: 'boolean'
       default: false
       description: 'show some status informations from the last "fix"'
-    runPhpWithoutAnyIni:
-      title: 'Run php with the -n flag'
-      type: 'boolean'
-      default: false
-      description: 'Runs php without any ini configuration, useful for avoiding xdebug errors'
 
   activate: (state) ->
     atom.config.observe 'php-cs-fixer.executeOnSave', =>
@@ -62,8 +62,8 @@ module.exports = PhpCsFixer =
     atom.config.observe 'php-cs-fixer.showInfoNotifications', =>
       @showInfoNotifications = atom.config.get 'php-cs-fixer.showInfoNotifications'
 
-    atom.config.observe 'php-cs-fixer.runPhpWithoutAnyIni', =>
-      @runPhpWithoutAnyIni = atom.config.get 'php-cs-fixer.runPhpWithoutAnyIni'
+    atom.config.observe 'php-cs-fixer.phpArguments', =>
+      @phpArguments = atom.config.get 'php-cs-fixer.phpArguments'
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
@@ -87,13 +87,12 @@ module.exports = PhpCsFixer =
 
     command = @phpExecutablePath
 
-    console.debug('php-cs-fixer Running with no INI?', @runPhpWithoutAnyIni);
+    args = []
 
-    # init options
-    if @runPhpWithoutAnyIni
-        args = ['-n', @executablePath, 'fix', filePath]
-    else
-        args = [@executablePath, 'fix', filePath]
+    if @phpArguments
+      args = @phpArguments
+
+    args = args.concat [@executablePath, 'fix', filePath]
 
     if configPath = @findFile(path.dirname(filePath), '.php_cs')
       args.push '--config-file=' + configPath
