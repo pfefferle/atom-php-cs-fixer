@@ -108,16 +108,19 @@ module.exports = PhpCsFixer =
 
     stdout = (output) ->
       if PhpCsFixer.showInfoNotifications
-        if (/^Fixed/.test(output))
-          atom.notifications.addSuccess('Your code looks perfect... nothing to fix!')
-        else if (/^\s*\d*[)]/.test(output))
+        if (/^\s*\d*[)]/.test(output))
           atom.notifications.addSuccess(output)
         else
           atom.notifications.addInfo(output)
       console.log(output)
 
     stderr = (output) ->
-      atom.notifications.addError(output)
+      if PhpCsFixer.showInfoNotifications
+        # temporary fixing https://github.com/pfefferle/atom-php-cs-fixer/issues/35
+        if (/^Loaded config from/.test(output))
+          atom.notifications.addInfo(output)
+        else
+          atom.notifications.addError(output)
       console.error(output)
 
     exit = (code) -> console.log("#{command} exited with code: #{code}")
