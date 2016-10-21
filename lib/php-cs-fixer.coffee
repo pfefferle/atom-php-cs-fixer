@@ -89,8 +89,11 @@ module.exports = PhpCsFixer =
 
     args = []
 
-    if @phpArguments
-      args = @phpArguments
+    if @phpArguments.length
+      if @phpArguments.length > 1
+        args = @phpArguments
+      else
+        args = @phpArguments[0].split(' ')
 
     args = args.concat [@executablePath, 'fix', filePath]
 
