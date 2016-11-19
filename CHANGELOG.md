@@ -1,3 +1,9 @@
+## 3.0.0
+
+* Added PHP args support
+* Fixed a notification bug
+* Updated readme (props to [@cyruseftos](https://github.com/cyruseftos))
+
 ## 2.5.9
 
 * Adding the option to run php without a php.ini file (props to [@christopherrolfe198](https://github.com/christopherrolfe198))
