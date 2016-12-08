@@ -128,7 +128,7 @@ module.exports = PhpCsFixer =
     stderr = (output) ->
       if PhpCsFixer.showInfoNotifications
         # temporary fixing https://github.com/pfefferle/atom-php-cs-fixer/issues/35
-        if (/^Loaded config from/.test(output))
+        if (/^Loaded config default from/.test(output))
           atom.notifications.addInfo(output)
         else
           atom.notifications.addError(output)
