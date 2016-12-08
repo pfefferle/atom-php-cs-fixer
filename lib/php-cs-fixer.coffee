@@ -10,38 +10,42 @@ module.exports = PhpCsFixer =
       title: 'PHP executable path'
       type: 'string'
       default: 'php'
-      description: 'the path to the `php` executable'
+      description: 'the path to the `php` executable.'
     phpArguments:
       title: 'Add PHP arguments'
       type: 'array'
       default: []
-      description: 'Add arguments, like for example `-n`, to the PHP executable'
+      description: 'Add arguments, like for example `-n`, to the PHP executable.'
     executablePath:
       title: 'PHP-CS-fixer executable path'
       type: 'string'
       default: 'php-cs-fixer'
-      description: 'the path to the `php-cs-fixer` executable'
-    level:
-      title: 'Level'
-      type: 'string'
-      enum: ['psr0', 'psr1', 'psr2', 'symfony']
-      default: 'psr2'
-      description: 'for example: psr0, psr1, psr2 or symfony'
-    fixers:
-      title: 'Fixers'
+      description: 'the path to the `php-cs-fixer` executable.'
+    configPath:
+       title: 'PHP-CS-fixer config file path'
+       type: 'string'
+       default: ''
+       description: 'optionally provide the path to the `.php_cs` config file, if the path is not provided it will be loaded from the root path of the current project.'
+    rules:
+      title: 'Rules'
       type: 'string'
       default: ''
-      description: 'a list of fixers, for example: `linefeed,short_tag,indentation`. See <http://cs.sensiolabs.org/#usage> for a complete list'
+      description: 'a list of rules (based on php-cs-fixer 2.0), for example: `@PSR2,no_short_echo_tag,indentation_type`. See <http://cs.sensiolabs.org/#usage> for a complete list. Will be ignored if a config file is used.'
     executeOnSave:
       title: 'Execute on save'
       type: 'boolean'
       default: false
       description: 'execute PHP CS fixer on save'
+    allowRisky:
+      title: 'Allow risky'
+      type: 'boolean'
+      default: false
+      description: 'option allows you to set whether risky rules may run. Will be ignored if a config file is used.'
     showInfoNotifications:
       title: 'Show notifications'
       type: 'boolean'
       default: false
-      description: 'show some status informations from the last "fix"'
+      description: 'show some status informations from the last "fix".'
 
   activate: (state) ->
     atom.config.observe 'php-cs-fixer.executeOnSave', =>
@@ -53,11 +57,14 @@ module.exports = PhpCsFixer =
     atom.config.observe 'php-cs-fixer.executablePath', =>
       @executablePath = atom.config.get 'php-cs-fixer.executablePath'
 
-    atom.config.observe 'php-cs-fixer.level', =>
-      @level = atom.config.get 'php-cs-fixer.level'
+    atom.config.observe 'php-cs-fixer.configPath', =>
+      @configPath = atom.config.get 'php-cs-fixer.configPath'
 
-    atom.config.observe 'php-cs-fixer.fixers', =>
-      @fixers = atom.config.get 'php-cs-fixer.fixers'
+    atom.config.observe 'php-cs-fixer.allowRisky', =>
+      @allowRisky = atom.config.get 'php-cs-fixer.allowRisky'
+
+    atom.config.observe 'php-cs-fixer.rules', =>
+      @rules = atom.config.get 'php-cs-fixer.rules'
 
     atom.config.observe 'php-cs-fixer.showInfoNotifications', =>
       @showInfoNotifications = atom.config.get 'php-cs-fixer.showInfoNotifications'
@@ -97,12 +104,14 @@ module.exports = PhpCsFixer =
 
     args = args.concat [@executablePath, 'fix', filePath]
 
-    if configPath = @findFile(path.dirname(filePath), '.php_cs')
-      args.push '--config-file=' + configPath
+    if @configPath
+      args.push '--config=' + @configPath
+    else if configPath = @findFile(path.dirname(filePath), '.php_cs')
+      args.push '--config=' + configPath
 
     # add optional options
-    args.push '--level=' + @level if @level and not configPath
-    args.push '--fixers=' + @fixers if @fixers and not configPath
+    args.push '--allow-risky=yes' if @allowRisky and not configPath
+    args.push '--rules=' + @rules if @rules and not configPath
 
     # some debug output for a better support feedback
     console.debug('php-cs-fixer Command', command)
