@@ -14,7 +14,8 @@
   "license": "MIT",
   "engines": {
     "atom": ">=0.174.0 <2.0.0",
-    "php": ">=5.3.6"
+    "php": ">=5.3.6",
+    "php-cs-fixer": ">=2.0.0"
   },
   "keywords": [
     "phpcs",
