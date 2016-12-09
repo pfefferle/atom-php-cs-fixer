@@ -1,4 +1,4 @@
-[![apm](https://img.shields.io/apm/v/php-cs-fixer.svg?maxAge=2592000)]() [![apm](https://img.shields.io/apm/l/php-cs-fixer.svg?maxAge=2592000)]() [![apm](https://img.shields.io/apm/dm/php-cs-fixer.svg?maxAge=2592000)]() 
+[![apm](https://img.shields.io/apm/v/php-cs-fixer.svg?maxAge=2592000)]() [![apm](https://img.shields.io/apm/l/php-cs-fixer.svg?maxAge=2592000)]() [![apm](https://img.shields.io/apm/dm/php-cs-fixer.svg?maxAge=2592000)]()
 
 # php-cs-fixer Atom-Package
 
@@ -16,7 +16,7 @@ or find it in the Packages tab under settings
 
 ## Requirements
 
-The package requires the "[PHP Coding Standards Fixer](http://cs.sensiolabs.org)" Cli build by [SensioLabs](http://sensiolabs.com).
+The package requires the "[PHP Coding Standards Fixer](http://cs.sensiolabs.org)" Cli build by [SensioLabs](http://sensiolabs.com). Minimum version required is 2.0.
 
 Installation via Composer
 
@@ -40,11 +40,12 @@ Here's an example configuration:
 
 ```cson
 "php-cs-fixer":
+  allowRisky: false # whether to run risky rules, false by default
   executablePath: "~/.composer/vendor/bin/php-cs-fixer" # the path to the `php-cs-fixer` executable
   executeOnSave: false # execute PHP CS fixer on save
-  fixers: null # a list of fixers
-  showInfoNotifications: true #show some status informations from the last "fix"
   phpExecutablePath: "/usr/bin/php" # the path to the `php` executable
+  rules: "-psr0,@PSR2,binary_operator_spaces,blank_line_before_return,..." # or null
+  showInfoNotifications: true #show some status informations from the last "fix"
 ```
 
 ## How-To
