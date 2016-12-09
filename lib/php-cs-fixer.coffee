@@ -30,7 +30,7 @@ module.exports = PhpCsFixer =
       title: 'Rules'
       type: 'string'
       default: ''
-      description: 'a list of rules (based on php-cs-fixer 2.0), for example: `@PSR2,no_short_echo_tag,indentation_type`. See <http://cs.sensiolabs.org/#usage> for a complete list. Will be ignored if a config file is used.'
+      description: 'a list of rules (based on php-cs-fixer 2.0), for example: `@PSR2,no_short_echo_tag,indentation_type`. See <https://github.com/FriendsOfPHP/PHP-CS-Fixer#usage> for a complete list. Will be ignored if a config file is used.'
     executeOnSave:
       title: 'Execute on save'
       type: 'boolean'
@@ -112,6 +112,7 @@ module.exports = PhpCsFixer =
     # add optional options
     args.push '--allow-risky=yes' if @allowRisky and not configPath
     args.push '--rules=' + @rules if @rules and not configPath
+    args.push '--using-cache=false'
 
     # some debug output for a better support feedback
     console.debug('php-cs-fixer Command', command)
@@ -127,8 +128,9 @@ module.exports = PhpCsFixer =
 
     stderr = (output) ->
       if PhpCsFixer.showInfoNotifications
-        # temporary fixing https://github.com/pfefferle/atom-php-cs-fixer/issues/35
-        if (/^Loaded config default from/.test(output))
+        if (output.replace(/\s/g,"") == "")
+          # do nothing
+        else if (/^Loaded config/.test(output)) # temporary fixing https://github.com/pfefferle/atom-php-cs-fixer/issues/35
           atom.notifications.addInfo(output)
         else
           atom.notifications.addError(output)
