@@ -4,6 +4,8 @@
 
 Run the "[PHP Coding Standards Fixer](http://cs.sensiolabs.org)" within your Atom Editor
 
+**This version [requires the PHP-CS-Fixer >= v2.0.0](#faq)!**
+
 ![A screenshot of your package](https://raw.github.com/pfefferle/atom-php-cs-fixer/master/php-cs-fixer.gif)
 
 ## Installation
@@ -87,6 +89,14 @@ I hope this helps 8)
 This works for me without errors.
 
 ## FAQ
+
+### Support for PHP-CS-Fixer v1.x.x
+
+The latest version of this plugin requires *PHP-CS-Fixer >= v2.0.0*, to use it with *PHP-CS-Fixer v1.x.x*, install version 3.0.0 or lower.
+
+```bash
+$ apm install php-cs-fixer@3.0.0
+```
 
 ### I have updated the plugin to 2.3.0 and it does not work any more
 

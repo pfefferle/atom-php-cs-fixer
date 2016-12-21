@@ -1,3 +1,9 @@
+## 4.1.0
+
+* Added possibility to add PHP-CS-Fixer Args
+* Added Path-Mode setting
+* Added .php_cs.dist support
+
 ## 4.0.0
 
 * Added PHP-CS-Fixer 2.x support (props to [@kenntchan](https://github.com/kenntchan))
