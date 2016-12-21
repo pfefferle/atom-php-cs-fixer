@@ -106,7 +106,7 @@ module.exports = PhpCsFixer =
 
     if @configPath
       args.push '--config=' + @configPath
-    else if configPath = @findFile(path.dirname(filePath), '.php_cs')
+    else if configPath = @findFile(path.dirname(filePath), ['.php_cs', '.php_cs.dist'])
       args.push '--config=' + configPath
 
     # add optional options
