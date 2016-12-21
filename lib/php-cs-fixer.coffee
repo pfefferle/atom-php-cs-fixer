@@ -10,42 +10,63 @@ module.exports = PhpCsFixer =
       title: 'PHP executable path'
       type: 'string'
       default: 'php'
-      description: 'the path to the `php` executable.'
+      description: 'The path to the `php` executable.'
+      order: 10
     phpArguments:
       title: 'Add PHP arguments'
       type: 'array'
       default: []
       description: 'Add arguments, like for example `-n`, to the PHP executable.'
+      order: 11
     executablePath:
       title: 'PHP-CS-fixer executable path'
       type: 'string'
       default: 'php-cs-fixer'
-      description: 'the path to the `php-cs-fixer` executable.'
-    configPath:
-       title: 'PHP-CS-fixer config file path'
-       type: 'string'
-       default: ''
-       description: 'optionally provide the path to the `.php_cs` config file, if the path is not provided it will be loaded from the root path of the current project.'
+      description: 'The path to the `php-cs-fixer` executable.'
+      order: 20
     rules:
-      title: 'Rules'
+      title: 'PHP-CS-Fixer Rules'
       type: 'string'
-      default: ''
-      description: 'a list of rules (based on php-cs-fixer 2.0), for example: `@PSR2,no_short_echo_tag,indentation_type`. See <https://github.com/FriendsOfPHP/PHP-CS-Fixer#usage> for a complete list. Will be ignored if a config file is used.'
-    executeOnSave:
-      title: 'Execute on save'
-      type: 'boolean'
-      default: false
-      description: 'execute PHP CS fixer on save'
+      default: '@PSR2'
+      description: 'A list of rules (based on php-cs-fixer 2.0), for example: `@PSR2,no_short_echo_tag,indentation_type`. See <https://github.com/FriendsOfPHP/PHP-CS-Fixer#usage> for a complete list. Will be ignored if a config file is used.'
+      order: 21
     allowRisky:
       title: 'Allow risky'
       type: 'boolean'
       default: false
-      description: 'option allows you to set whether risky rules may run. Will be ignored if a config file is used.'
+      description: 'Option allows you to set whether risky rules may run. Will be ignored if a config file is used.'
+      order: 22
+    pathMode:
+      title: 'PHP-CS-Fixer Path-Mode'
+      type: 'string'
+      default: 'override'
+      enum: ['override', 'intersection']
+      description: 'Specify path mode (can be override or intersection).'
+      order: 23
+    fixerArguments:
+      title: 'PHP-CS-Fixer arguments'
+      type: 'array'
+      default: ['--using-cache=no', '--no-interaction']
+      description: 'Add arguments, like for example `--using-cache=false`, to the PHP-CS-Fixer executable. Run `php-cs-fixer help fix` in your command line, to get a full list of all supported arguments.'
+      order: 24
+    configPath:
+      title: 'PHP-CS-fixer config file path'
+      type: 'string'
+      default: ''
+      description: 'Optionally provide the path to the `.php_cs` config file, if the path is not provided it will be loaded from the root path of the current project.'
+      order: 25
+    executeOnSave:
+      title: 'Execute on save'
+      type: 'boolean'
+      default: false
+      description: 'Execute PHP CS fixer on save'
+      order: 30
     showInfoNotifications:
       title: 'Show notifications'
       type: 'boolean'
       default: false
-      description: 'show some status informations from the last "fix".'
+      description: 'Show some status informations from the last "fix".'
+      order: 31
 
   activate: (state) ->
     atom.config.observe 'php-cs-fixer.executeOnSave', =>
@@ -71,6 +92,12 @@ module.exports = PhpCsFixer =
 
     atom.config.observe 'php-cs-fixer.phpArguments', =>
       @phpArguments = atom.config.get 'php-cs-fixer.phpArguments'
+
+    atom.config.observe 'php-cs-fixer.fixerArguments', =>
+      @fixerArguments = atom.config.get 'php-cs-fixer.fixerArguments'
+
+    atom.config.observe 'php-cs-fixer.pathMode', =>
+      @pathMode = atom.config.get 'php-cs-fixer.pathMode'
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
@@ -112,7 +139,15 @@ module.exports = PhpCsFixer =
     # add optional options
     args.push '--allow-risky=yes' if @allowRisky and not configPath
     args.push '--rules=' + @rules if @rules and not configPath
-    args.push '--using-cache=false'
+    args.push '--path-mode=' + @pathMode if @pathMode
+
+    if @fixerArguments.length and not configPath
+      if @fixerArguments.length > 1
+        fixerArgs = @fixerArguments
+      else
+        fixerArgs = @fixerArguments[0].split(' ')
+
+      args = args.concat fixerArgs;
 
     # some debug output for a better support feedback
     console.debug('php-cs-fixer Command', command)
