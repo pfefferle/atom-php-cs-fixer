@@ -131,17 +131,18 @@ module.exports = PhpCsFixer =
 
     args = args.concat [@executablePath, 'fix', filePath]
 
+    if not @configPath and configPath = @findFile(path.dirname(filePath), ['.php_cs', '.php_cs.dist'])
+      @configPath = configPath
+
     if @configPath
       args.push '--config=' + @configPath
-    else if configPath = @findFile(path.dirname(filePath), ['.php_cs', '.php_cs.dist'])
-      args.push '--config=' + configPath
 
     # add optional options
-    args.push '--allow-risky=yes' if @allowRisky and not configPath
-    args.push '--rules=' + @rules if @rules and not configPath
+    args.push '--allow-risky=yes' if @allowRisky and not @configPath
+    args.push '--rules=' + @rules if @rules and not @configPath
     args.push '--path-mode=' + @pathMode if @pathMode
 
-    if @fixerArguments.length and not configPath
+    if @fixerArguments.length and not @configPath
       if @fixerArguments.length > 1
         fixerArgs = @fixerArguments
       else
