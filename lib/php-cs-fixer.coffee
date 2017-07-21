@@ -138,8 +138,10 @@ module.exports = PhpCsFixer =
       args.push '--config=' + @configPath
 
     # add optional options
-    args.push '--allow-risky=yes' if @allowRisky and not @configPath
-    args.push '--rules=' + @rules if @rules and not @configPath
+    if not @configPath
+      args.push '--allow-risky=yes' if @allowRisky
+      args.push '--rules=' + @rules if @rules
+
     args.push '--path-mode=' + @pathMode if @pathMode
 
     if @fixerArguments.length and not @configPath
