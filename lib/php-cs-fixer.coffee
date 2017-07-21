@@ -131,7 +131,7 @@ module.exports = PhpCsFixer =
 
     args = args.concat [@executablePath, 'fix', filePath]
 
-    if not @configPath and configPath = @findFile(path.dirname(filePath), ['.php_cs', '.php_cs.dist'])
+    if not @configPath and configPath = @findFile(path.dirname(filePath.toString()), ['.php_cs', '.php_cs.dist'])
       @configPath = configPath
 
     if @configPath
@@ -152,10 +152,6 @@ module.exports = PhpCsFixer =
 
       args = args.concat fixerArgs;
 
-    # some debug output for a better support feedback
-    console.debug('php-cs-fixer Command', command)
-    console.debug('php-cs-fixer Arguments', args)
-
     stdout = (output) ->
       if PhpCsFixer.showInfoNotifications
         if (/^\s*\d*[)]/.test(output))
@@ -172,7 +168,7 @@ module.exports = PhpCsFixer =
           atom.notifications.addInfo(output)
         else
           atom.notifications.addError(output)
-      console.error(output)
+          console.error(output)
 
     exit = (code) -> console.log("#{command} exited with code: #{code}")
 
