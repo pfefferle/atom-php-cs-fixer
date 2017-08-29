@@ -115,7 +115,7 @@ module.exports = PhpCsFixer =
     @subscriptions.dispose()
 
   fix: ->
-    editor = atom.workspace.getActivePaneItem()
+    editor = atom.workspace.getActiveTextEditor()
 
     filePath = editor.getPath() if editor && editor.getPath
 
