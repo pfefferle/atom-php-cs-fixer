@@ -1,3 +1,7 @@
+## 4.1.1
+
+* Fix when the text editor is not in focus (props to [@Azakur4](https://github.com/Azakur4))
+
 ## 4.1.0
 
 * Added possibility to add PHP-CS-Fixer Args
