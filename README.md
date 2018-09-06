@@ -78,7 +78,7 @@ cat /usr/local/bin/php-cs-fixer
 
 *Go back to settings in Atom for php-cs-fixer.*
 
-`/usr/local/Cellar/php-cs-fixer/1.8.1/libexec/php-cs-fixer.phar`
+`/usr/local/Cellar/php-cs-fixer/2.13.0/libexec/php-cs-fixer.phar`
 
 **FYI:** "*PHP executable Path*" is empty for my set up. I also installed PHP with brew.
 
