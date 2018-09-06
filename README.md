@@ -71,7 +71,7 @@ $ which php-cs-fixer
 cat /usr/local/bin/php-cs-fixer
 #!/bin/sh
 
-/usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off /usr/local/Cellar/php-cs-fixer/1.8.1/libexec/php-cs-fixer.phar $*
+/usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off /usr/local/Cellar/php-cs-fixer/2.13.0/libexec/php-cs-fixer.phar $*
 ```
 
 #### Paste the path for php-cs-fixer.phar in *Executable Path*
