@@ -128,7 +128,12 @@ module.exports = PhpCsFixer =
         args = @phpArguments
       else
         args = @phpArguments[0].split(' ')
-
+        
+    fileSearchStartPath = path.dirname(filePath.toString())
+    
+    unless @executablePath and @fileExists(@executablePath)
+      vendorBinary = 'vendor/bin/php-cs-fixer'
+      @executablePath = @findFile(fileSearchStartPath, vendorBinary)
     args = args.concat [@executablePath, 'fix', filePath]
 
     if not @configPath and configPath = @findFile(path.dirname(filePath.toString()), ['.php_cs', '.php_cs.dist'])
@@ -198,7 +203,15 @@ module.exports = PhpCsFixer =
       for name in names
         filePath = path.join(currentDir, name)
         try
+          console.log("!!!Looking in #{filePath}")
           fs.accessSync(filePath, fs.R_OK)
           return filePath
       startDir.pop()
     return null
+    
+  fileExists: (path) ->
+    try
+      fs.accessSync(filePath, fs.R_OK)
+      return true
+    catch
+      return false
