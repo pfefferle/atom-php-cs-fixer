@@ -16,7 +16,8 @@ module.exports = PhpCsFixer =
       title: 'Add PHP arguments'
       type: 'array'
       default: []
-      description: 'Add arguments, like for example `-n`, to the PHP executable.'
+      description: 'Add arguments, like for example
+                    `-n`, to the PHP executable.'
       order: 11
     executablePath:
       title: 'PHP-CS-fixer executable path'
@@ -28,13 +29,18 @@ module.exports = PhpCsFixer =
       title: 'PHP-CS-Fixer Rules'
       type: 'string'
       default: '@PSR2'
-      description: 'A list of rules (based on php-cs-fixer 2.0), for example: `@PSR2,no_short_echo_tag,indentation_type`. See <https://github.com/FriendsOfPHP/PHP-CS-Fixer#usage> for a complete list. Will be ignored if a config file is used.'
+      description: 'A list of rules (based on php-cs-fixer 2.0),
+                    for example: `@PSR2,no_short_echo_tag,indentation_type`.
+                    See <https://github.com/FriendsOfPHP/PHP-CS-Fixer#usage>
+                    for a complete list.
+                    Will be ignored if a config file is used.'
       order: 21
     allowRisky:
       title: 'Allow risky'
       type: 'boolean'
       default: false
-      description: 'Option allows you to set whether risky rules may run. Will be ignored if a config file is used.'
+      description: 'Option allows you to set whether risky rules may run.
+                    Will be ignored if a config file is used.'
       order: 22
     pathMode:
       title: 'PHP-CS-Fixer Path-Mode'
@@ -47,13 +53,18 @@ module.exports = PhpCsFixer =
       title: 'PHP-CS-Fixer arguments'
       type: 'array'
       default: ['--using-cache=no', '--no-interaction']
-      description: 'Add arguments, like for example `--using-cache=false`, to the PHP-CS-Fixer executable. Run `php-cs-fixer help fix` in your command line, to get a full list of all supported arguments.'
+      description: 'Add arguments, like for example `--using-cache=false`,
+                    to the PHP-CS-Fixer executable. Run `php-cs-fixer help fix`
+                    in your command line,
+                    to get a full list of all supported arguments.'
       order: 24
     configPath:
       title: 'PHP-CS-fixer config file path'
       type: 'string'
       default: ''
-      description: 'Optionally provide the path to the `.php_cs` config file, if the path is not provided it will be loaded from the root path of the current project.'
+      description: 'Optionally provide the path to the `.php_cs` config file,
+                    if the path is not provided it will be loaded from the root
+                    path of the current project.'
       order: 25
     executeOnSave:
       title: 'Execute on save'
@@ -88,7 +99,8 @@ module.exports = PhpCsFixer =
       @rules = atom.config.get 'php-cs-fixer.rules'
 
     atom.config.observe 'php-cs-fixer.showInfoNotifications', =>
-      @showInfoNotifications = atom.config.get 'php-cs-fixer.showInfoNotifications'
+      @showInfoNotifications = atom
+                                .config.get 'php-cs-fixer.showInfoNotifications'
 
     atom.config.observe 'php-cs-fixer.phpArguments', =>
       @phpArguments = atom.config.get 'php-cs-fixer.phpArguments'
@@ -99,11 +111,13 @@ module.exports = PhpCsFixer =
     atom.config.observe 'php-cs-fixer.pathMode', =>
       @pathMode = atom.config.get 'php-cs-fixer.pathMode'
 
-    # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
+    # Events subscribed to in atom's system can be easily cleaned up
+    # with a CompositeDisposable
     @subscriptions = new CompositeDisposable
 
     # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'php-cs-fixer:fix': => @fix()
+    fixer = 'php-cs-fixer:fix': => @fix()
+    @subscriptions.add atom.commands.add 'atom-workspace', fixer
 
     # Add workspace observer and save handler
     @subscriptions.add atom.workspace.observeTextEditors (editor) =>
@@ -128,11 +142,17 @@ module.exports = PhpCsFixer =
         args = @phpArguments
       else
         args = @phpArguments[0].split(' ')
-
+        
+    fileSearchStartPath = path.dirname(filePath.toString())
+    
+    unless @executablePath and @fileExists(@executablePath)
+      vendorBinary = 'vendor/bin/php-cs-fixer'
+      @executablePath = @findFile(fileSearchStartPath, vendorBinary)
     args = args.concat [@executablePath, 'fix', filePath]
-
-    if not @configPath and configPath = @findFile(path.dirname(filePath.toString()), ['.php_cs', '.php_cs.dist'])
-      @configPath = configPath
+    
+    configFiles = ['.php_cs', '.php_cs.dist']
+    unless @configPath
+      @configPath = @findFile(fileSearchStartPath, configFiles)
 
     if @configPath
       args.push '--config=' + @configPath
@@ -150,7 +170,7 @@ module.exports = PhpCsFixer =
       else
         fixerArgs = @fixerArguments[0].split(' ')
 
-      args = args.concat fixerArgs;
+      args = args.concat fixerArgs
 
     stdout = (output) ->
       if PhpCsFixer.showInfoNotifications
@@ -164,7 +184,10 @@ module.exports = PhpCsFixer =
       if PhpCsFixer.showInfoNotifications
         if (output.replace(/\s/g,"") == "")
           # do nothing
-        else if (/^Loaded config/.test(output)) # temporary fixing https://github.com/pfefferle/atom-php-cs-fixer/issues/35
+          
+        # temporary fixing:
+        # https://github.com/pfefferle/atom-php-cs-fixer/issues/35
+        else if (/^Loaded config/.test(output))
           atom.notifications.addInfo(output)
         else
           atom.notifications.addError(output)
@@ -180,14 +203,16 @@ module.exports = PhpCsFixer =
       exit: exit
     }) if filePath
 
-  # copied from the AtomLinter lib
-  # see: https://github.com/AtomLinter/atom-linter/blob/master/lib/helpers.coffee#L112
+  # copied from the AtomLinter li
+  # see:
+  # https://github.com/AtomLinter/atom-linter/blob/master/lib/helpers.coffee#L112
   #
   # The AtomLinter is licensed under "The MIT License (MIT)"
   #
   # Copyright (c) 2015 AtomLinter
   #
-  # See the full license here: https://github.com/AtomLinter/atom-linter/blob/master/LICENSE
+  # See the full license here:
+  # https://github.com/AtomLinter/atom-linter/blob/master/LICENSE
   findFile: (startDir, names) ->
     throw new Error "Specify a filename to find" unless arguments.length
     unless names instanceof Array
@@ -198,7 +223,15 @@ module.exports = PhpCsFixer =
       for name in names
         filePath = path.join(currentDir, name)
         try
+          console.log("!!!Looking in #{filePath}")
           fs.accessSync(filePath, fs.R_OK)
           return filePath
       startDir.pop()
     return null
+    
+  fileExists: (path) ->
+    try
+      fs.accessSync(filePath, fs.R_OK)
+      return true
+    catch
+      return false
