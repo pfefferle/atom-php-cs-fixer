@@ -55,6 +55,12 @@ module.exports = PhpCsFixer =
       default: ''
       description: 'Optionally provide the path to the `.php_cs` config file, if the path is not provided it will be loaded from the root path of the current project.'
       order: 25
+    requireConfig:
+      title: 'Require a PHP-CS-fixer config file'
+      type: 'boolean'
+      default: false
+      description: 'Run only if a `.php_cs` config file is available'
+      order: 26
     executeOnSave:
       title: 'Execute on save'
       type: 'boolean'
@@ -80,6 +86,9 @@ module.exports = PhpCsFixer =
 
     atom.config.observe 'php-cs-fixer.configPath', =>
       @configPath = atom.config.get 'php-cs-fixer.configPath'
+
+    atom.config.observe 'php-cs-fixer.requireConfig', =>
+      @requireConfig = atom.config.get 'php-cs-fixer.requireConfig'
 
     atom.config.observe 'php-cs-fixer.allowRisky', =>
       @allowRisky = atom.config.get 'php-cs-fixer.allowRisky'
@@ -133,6 +142,11 @@ module.exports = PhpCsFixer =
 
     if not @configPath and configPath = @findFile(path.dirname(filePath.toString()), ['.php_cs', '.php_cs.dist'])
       @configPath = configPath
+      console.log(configPath);
+
+    if @requireConfig and not @configPath
+      atom.notifications.addInfo('Skipped: No config file found')
+      return null
 
     if @configPath
       args.push '--config=' + @configPath
