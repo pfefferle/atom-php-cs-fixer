@@ -1,7 +1,7 @@
 {
   "name": "php-cs-fixer",
   "main": "./lib/php-cs-fixer",
-  "version": "4.1.1",
+  "version": "4.2.0",
   "description": "Run the 'PHP Coding Standards Fixer' within Atom",
   "author": {
     "name": "Matthias Pfefferle",
