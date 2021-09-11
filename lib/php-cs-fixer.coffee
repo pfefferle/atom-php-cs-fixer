@@ -53,13 +53,13 @@ module.exports = PhpCsFixer =
       title: 'PHP-CS-fixer config file path'
       type: 'string'
       default: ''
-      description: 'Optionally provide the path to the `.php_cs` config file, if the path is not provided it will be loaded from the root path of the current project.'
+      description: 'Optionally provide the path to the `.php_cs` or `.php-cs-fixer.php` config file, if the path is not provided it will be loaded from the root path of the current project.'
       order: 25
     requireConfig:
       title: 'Require a PHP-CS-fixer config file'
       type: 'boolean'
       default: false
-      description: 'Run only if a `.php_cs` config file is available'
+      description: 'Run only if a `.php_cs` or `.php-cs-fixer.php` config file is available'
       order: 26
     executeOnSave:
       title: 'Execute on save'
@@ -140,7 +140,7 @@ module.exports = PhpCsFixer =
 
     args = args.concat [@executablePath, 'fix', filePath]
 
-    if not @configPath and configPath = @findFile(path.dirname(filePath.toString()), ['.php_cs', '.php_cs.dist'])
+    if not @configPath and configPath = @findFile(path.dirname(filePath.toString()), ['.php_cs', '.php_cs.dist', '.php-cs-fixer.php', '.php-cs-fixer.dist.php'])
       @configPath = configPath
       console.log(configPath);
 
